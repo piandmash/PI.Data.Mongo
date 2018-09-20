@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net451;netcoreapp2.1;netcoreapp2.0</TargetFrameworks>
+    <Authors>Pete Cleary</Authors>
+    <Company>Pi &amp; Mash Limited</Company>
+    <Description>Mongo DB repository, managers, base models and interfaces for any Mongo data projects</Description>
+    <Copyright>Copyright ©  2018 Pi &amp; Mash Limited</Copyright>
+    <PackageLicenseUrl>https://github.com/piandmash/PI.Data.Mongo/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/piandmash/PI.Data.Mongo</PackageProjectUrl>
+    <PackageIconUrl>https://www.piandmash.com/pi_logo.png</PackageIconUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/piandmash/PI.Data.Mongo</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>mongo, mongo db</PackageTags>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Bson" Version="2.7.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="PI.Utilities" Version="2.0.0" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>
