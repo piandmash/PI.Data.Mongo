@@ -19,20 +19,18 @@ namespace PI.Data.Mongo.Models
         /// <param name="connectionString">The connection string</param>
         /// <param name="databaseName">The database name</param>
         /// <param name="log">Optional log setting, defaults to false</param>
-        /// <param name="azure">Optional flag to advise if using Azure, defaults to false</param>
+        /// <param name="indexingDisabled">Optional flag to advise if indexing is disabled, defaults to false</param>
         /// <param name="conventionsPackName">Optional name for the conventions pack, defaults to pi</param>
         public MongoRepositorySettings(string connectionString, 
             string databaseName, 
             bool log = false, 
-            bool azure = false, 
-            ICacheSettings cacheSettings = null,
+            bool indexingDisabled = false, 
             string conventionsPackName = "pi")
         {
             ConnectionString = connectionString;
             DatabaseName = databaseName;
             Log = log;
-            Azure = azure;
-            CacheSettings = cacheSettings;
+            IndexingDisabled = indexingDisabled;
             ConventionsPackName = conventionsPackName;
         }
 
@@ -52,15 +50,10 @@ namespace PI.Data.Mongo.Models
         public bool Log { get; set; }
 
         /// <summary>
-        /// Flag to advise if the store is Azure
+        /// Flag to advise if the store has indexing disabled, defaults to false
         /// </summary>
-        public bool Azure { get; set; }
-
-        /// <summary>
-        /// The Cache Settings
-        /// </summary>
-        public ICacheSettings CacheSettings { get; set; }
-
+        public bool IndexingDisabled { get; set; }
+        
         /// <summary>
         /// Gets/sets the conventions pack name
         /// </summary>

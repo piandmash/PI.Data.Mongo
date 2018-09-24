@@ -17,20 +17,11 @@ namespace PI.Data.Mongo.Interfaces
         /// Getter for the read only IMongoDatabase
         /// </summary>
         IMongoDatabase Database { get; }
-        
-        /// <summary>
-        /// Gets if the repository is an Azure repository
-        /// </summary>
-        bool Azure { get; }
 
         /// <summary>
-        /// Gets the cache settings
+        /// Gets if the repository has indexing disabled
         /// </summary>
-        ICacheSettings CacheSettings { get; }
+        bool IndexingDisabled { get; }
 
-        ///// <summary>
-        ///// Gets the cache client
-        ///// </summary>
-        //ICacheClient Cache { get; }
     }
 }

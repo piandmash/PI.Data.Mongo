@@ -18,15 +18,10 @@
         bool Log { get; set; }
 
         /// <summary>
-        /// Flag to advise if the store is Azure
+        /// Flag to advise if the store has indexing disabled, defaults to false
         /// </summary>
-        bool Azure { get; set; }
-
-        /// <summary>
-        /// The Cache Settings
-        /// </summary>
-        ICacheSettings CacheSettings { get; set; }
-        
+        bool IndexingDisabled { get; set; }
+                
         /// <summary>
         /// Gets/sets the conventions pack name
         /// </summary>

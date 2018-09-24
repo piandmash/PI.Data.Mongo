@@ -17,7 +17,7 @@ namespace PI.Data.Mongo
         /// <param name="databaseName">The database name to target</param>
         public MongoDbRepository(IMongoRepositorySettings settings)
         {
-            _Azure = settings.Azure;
+            _IndexingDisabled = settings.IndexingDisabled;
             var clientSettings = MongoClientSettings.FromUrl(new MongoUrl(settings.ConnectionString));
             if (settings.Log)
             {
@@ -31,22 +31,22 @@ namespace PI.Data.Mongo
             }
             _Client = new MongoClient(clientSettings);
             if (_Client != null) _Database = _Client.GetDatabase(settings.DatabaseName);
+            //register conventions
+            RegisteringConventionsPack(settings.ConventionsPackName);
+        }
+
+        /// <summary>
+        /// Creates the standard convention pack setup for the repository, override to create and manage your own pack settings
+        /// </summary>
+        /// <param name="conventionsPackName">The name of the convention pack</param>
+        protected virtual void RegisteringConventionsPack(string conventionsPackName)
+        {
             //register convention pack
             var pack = new ConventionPack();
             pack.Add(new CamelCaseElementNameConvention());
             pack.Add(new IgnoreExtraElementsConvention(true));
             pack.Add(new StringObjectIdIdGeneratorConvention());
-            ConventionRegistry.Register(settings.ConventionsPackName, pack, t => true);
-            //set the cache
-            if (settings.CacheSettings != null)
-            {
-                _CacheSettings = settings.CacheSettings;
-                //var serializer = new NewtonsoftSerializer(new Newtonsoft.Json.JsonSerializerSettings()
-                //{
-                //    TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All
-                //});
-                //if (CacheSettings.Enabled) _Cache = new StackExchangeRedisCacheClient(serializer, CacheSettings.ConnectionString, CacheSettings.KeyPrefix);
-            }
+            ConventionRegistry.Register(conventionsPackName, pack, t => true);
         }
 
         private IMongoClient _Client;
@@ -67,31 +67,14 @@ namespace PI.Data.Mongo
             get { return _Database; }
         }
 
-        private bool _Azure = false;
+        private bool _IndexingDisabled = false;
         /// <summary>
-        /// Gets if the repository is an Azure repository
+        /// Gets if the repository has indexing disabled
         /// </summary>
-        public bool Azure
+        public bool IndexingDisabled
         {
-            get { return _Azure; }
+            get { return _IndexingDisabled; }
         }
 
-        private ICacheSettings _CacheSettings = new CacheSettings();
-        /// <summary>
-        /// Gets the cache settings
-        /// </summary>
-        public ICacheSettings CacheSettings
-        {
-            get { return _CacheSettings; }
-        }
-
-        //private ICacheClient _Cache;
-        ///// <summary>
-        ///// Gets the cache client
-        ///// </summary>
-        //public ICacheClient Cache
-        //{
-        //    get { return _Cache; }
-        //}
     }
 }
